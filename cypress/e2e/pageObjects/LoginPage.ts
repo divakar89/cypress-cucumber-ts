@@ -2,12 +2,13 @@ export default class LoginPage {
   // Locators
   usernameInput = "#username"
   passwordInput = "#password"
-  loginButton = "#login"
+  loginButton = "#submit"
+  successMessage = "h1.post-title"
   errorMessage = "#error"
 
   // Visit the login page
   visit() {
-    cy.visit("/login")
+    cy.visit("https://practicetestautomation.com/practice-test-login/")
   }
 
   // Perform login
@@ -18,12 +19,12 @@ export default class LoginPage {
   }
 
   // Verify successful login
-  verifyLoginSuccess() {
-    cy.url().should("include", "/dashboard")
+  verifyLoginSuccess(message: string) {
+    cy.contains(this.successMessage, message).should("be.visible")
   }
 
   // Verify login failure
   verifyLoginFailure(message: string) {
-    cy.get(this.errorMessage).should("contain.text", message)
+    cy.contains(this.errorMessage, message).should("be.visible")
   }
 }

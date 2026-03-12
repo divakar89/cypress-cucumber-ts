@@ -13,8 +13,8 @@ When("user logs in with credentials", (table: DataTable) => {
   loginPage.login(data.username, data.password)
 })
 
-Then("user should see the dashboard", () => {
-  loginPage.verifyLoginSuccess()
+Then("user should see an success message {string}", (message: string) => {
+  loginPage.verifyLoginSuccess(message)
 })
 
 Then("user should see an error message {string}", (message: string) => {

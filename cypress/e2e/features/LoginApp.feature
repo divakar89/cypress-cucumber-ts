@@ -1,16 +1,25 @@
 Feature: Login functionality
 
-  @test
+  @login
   Scenario: Successful login with valid credentials
     Given user is on the login page
     When user logs in with credentials
-      | username | password  |
-      | admin    | admin123  |
-    Then user should see the dashboard
+      | username | password    |
+      | student  | Password123 |
+    Then user should see an success message "Logged In Successfully"
 
-  Scenario: Unsuccessful login with invalid credentials
+  @login
+  Scenario: Unsuccessful login with invalid userid
     Given user is on the login page
     When user logs in with credentials
-      | username | password   |
-      | admin    | wrongpass  |
-    Then user should see an error message "Invalid username or password"
+      | username | password    |
+      | trainer  | Password123 |
+    Then user should see an error message "Your username is invalid!"
+
+  @login
+  Scenario: Unsuccessful login with invalid password
+    Given user is on the login page
+    When user logs in with credentials
+      | username | password    |
+      | student  | Password234 |
+    Then user should see an error message "Your password is invalid!"
