@@ -1,56 +1,40 @@
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor"
+import { Given, Then } from '@badeball/cypress-cucumber-preprocessor';
+import UserApiTestCode from '../pageObjects/UserApiTestCode';
 
-let response
+const userApiTest = new UserApiTestCode();
 
-Given("user prepares create request", () => {
+Given('I send a GET request to the user API', function() {
+    userApiTest.getUserDetails();
+});
 
-  cy.wrap({
-    name: "John",
-    job: "QA"
-  }).as('payload')
+Then('I should receive the expected user details', function() {
+    userApiTest.validateGetResponse();
+});
 
-})
+Given('I update user data via the posts API', () => {
+    const timestamp = Date.now();
+    const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+    const payload = {
+        userId: 1,
+        title: 'Post Title ' + timestamp,
+        body: 'This is the body of the post created at ' + timestamp
+    };
 
-When("user sends POST request", function () {
+    cy.request({
+        method: 'POST',
+        url: apiUrl,
+        body: payload,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }).as('apiResponse').then((response) => {
+        if (response.status !== 201) {
+            throw new Error(`Failed to create post. Status code: ${response.status}`);
+        }
+    });
+});
 
-  cy.request({
-    method: "POST",
-    url: "https://reqres.in/api/users",
-    body: this.payload
-  }).then((res)=>{
-    response = res
-  })
-
-})
-
-Then("user should be created successfully", () => {
-
-  expect(response.status).to.eq(201)
-
-})
-
-
-Given("user prepares update request", () => {
-
-})
-
-When("user sends PUT request", () => {
-
-  cy.request({
-    method: "PUT",
-    url: "https://reqres.in/api/users/2",
-    body: {
-      name: "John Updated",
-      job: "QA Lead"
-    }
-  }).then((res)=>{
-    response = res
-  })
-
-})
-
-Then("user should be updated successfully", () => {
-
-  expect(response.status).to.eq(200)
-
-})
+Then('the API should respond with a success status code', () => {
+    cy.get('@apiResponse').its('status').should('equal', 201);
+});

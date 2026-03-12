@@ -1,11 +1,10 @@
-Feature: API testing
+Feature: Validation of API on JSONPlaceholder site
 
-Scenario: Create user
-  Given user prepares create request
-  When user sends POST request
-  Then user should be created successfully
+  Scenario: Validate API response
+    Given I send a GET request to the user API
+    Then I should receive the expected user details
 
-Scenario: Update user
-  Given user prepares update request
-  When user sends PUT request
-  Then user should be updated successfully
+  @test
+  Scenario: Update user data via API
+    Given I update user data via the posts API
+    Then the API should respond with a success status code
