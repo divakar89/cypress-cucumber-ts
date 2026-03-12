@@ -14,6 +14,7 @@
     "@types/node": "^25.4.0",
     "cypress": "^13.17.0",
     "cypress-parallel": "^0.14.0",
+    "cypress-xpath": "^2.0.1",
     "esbuild": "^0.19.12",
     "multiple-cucumber-html-reporter": "^3.0.0",
     "typescript": "^5.0.0"
