@@ -4,7 +4,7 @@
   "scripts": {
     "test": "cypress run",
     "open": "cypress open",
-    "tag": "cypress run --env TAGS='@test'",
+    "tag": "cypress run --env tags='@test'",
     "parallel": "cypress-parallel -s test -t 3 -d cypress/e2e/features",
     "report": "node cucumber-html-report.js"
   },
@@ -21,7 +21,7 @@
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": false,
     "stepDefinitions": [
-      "cypress/e2e/stepDefinitions/*.ts"
+      "cypress/e2e/stepDefinitions/**/*.ts"
     ],
     "html": {
       "enabled": true

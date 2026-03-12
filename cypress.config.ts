@@ -5,20 +5,26 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 // ✅ Use require() for CommonJS module
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor")
 
+async function setupNodeEvents(
+  on: Cypress.PluginEvents,
+  config: Cypress.PluginConfigOptions
+): Promise<Cypress.PluginConfigOptions> {
+  await addCucumberPreprocessorPlugin(on, config)
+
+  on(
+    'file:preprocessor',
+    createBundler({
+      plugins: [createEsbuildPlugin(config)],
+    })
+  )
+
+  return config
+}
+
 export default defineConfig({
   e2e: {
-    specPattern: "cypress/e2e/features/*.feature",
-    async setupNodeEvents(on, config) {
-      await addCucumberPreprocessorPlugin(on, config)
-
-      on(
-        "file:preprocessor",
-        createBundler({
-          plugins: [createEsbuildPlugin(config)],
-        })
-      )
-
-      return config
-    },
+    baseUrl: 'https://magento.softwaretestingboard.com/customer/account/login/referer',
+    specPattern: '**/*.feature',
+    setupNodeEvents,
   },
 })
