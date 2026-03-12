@@ -1,3 +1,4 @@
 node_modules
-reports/cucumber_report.json
 cucumber-report.html
+cypress/screenshots
+cypress/reports
