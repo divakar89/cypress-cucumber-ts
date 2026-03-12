@@ -1,0 +1,11 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.settings.useSplitJSON": true,
+    "cucumberautocomplete.steps": [
+    "cypress/e2e/stepDefinitions/*.ts"
+    ],
+    "cucumberautocomplete.syncfeatures": "cypress/e2e/features/*.feature",
+    "cucumberautocomplete.strictGherkinCompletion": true,
+    "cucumberautocomplete.smartSnippets": true,
+    "git.confirmSync": false
+}

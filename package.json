@@ -1,0 +1,30 @@
+{
+  "name": "cypress-cucumber-ts",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "cypress run",
+    "open": "cypress open",
+    "tag": "cypress run --env TAGS='@test'",
+    "parallel": "cypress-parallel -s test -t 3 -d cypress/e2e/features",
+    "report": "node cucumber-html-report.js"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.1.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "@types/node": "^25.4.0",
+    "cypress": "^13.17.0",
+    "cypress-parallel": "^0.14.0",
+    "esbuild": "^0.19.12",
+    "multiple-cucumber-html-reporter": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": [
+      "cypress/e2e/stepDefinitions/*.ts"
+    ],
+    "html": {
+      "enabled": true
+    }
+  }
+}
